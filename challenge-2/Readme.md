@@ -66,7 +66,7 @@ Plan: 0 to add, 0 to change, 0 to destroy.
 Ensure there are no warning message related to "Value for undeclared variable"
 
 
-### 6. Dynamic Value Implementation
+#### 6. Dynamic Value Implementation
 
 Remove temporary hardcoded values that were added in Step 4 and implement proper module outputs:
 
