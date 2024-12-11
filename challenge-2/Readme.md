@@ -22,7 +22,7 @@ Use the `aws_ami` data source to replace the hardcoded AMI ID from the `aws_inst
 
 Split (Move) the existing code into multiple child modules as described in below table. Each child module must be inside the `modules` folder.
 
-| Resources  | Child Module Name | 
+| Resources  | Child Modules Folder Name | 
 | :---        |    :----:   | 
 | `aws_instance`,`aws_ami`  | ec2      | 
 | `aws_security_group` | sg    | 
