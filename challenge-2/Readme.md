@@ -33,9 +33,10 @@ Split (Move) the existing code into multiple child modules as described in below
 | `random_pet`  |  random      | 
 
 
-* Do NOT modify the main resource configuration code that were moved inside the child modules.
-* Configure appropriate module sources in the root module to load all child modules.
+* Do NOT modify the main resource configuration code that were moved inside the child modules. (only for this task)
+* Configure appropriate module sources in the root module (main.tf) to load all child modules.
 * Add appropriate variables in child modules.
+* Add appropriate variable value in root module.
 
 * Run the `terraform init` command to re-initialize. Ensure there are no errors.
 
