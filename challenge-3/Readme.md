@@ -10,7 +10,7 @@ The following important resource related code is configured  in the `base-folder
 | Resource Code | Description | 
 | :---        |    :----:   | 
 | `EC2FullAccess` IAM Role  | Provides Full Access to EC2 service.      | 
-| `IAMFullAccess` IAM Role | Provides Full Access to S3 service.   | 
+| `IAMFullAccess` IAM Role | Provides Full Access to IAM service.   | 
 | `ReadOnlyRole` IAM Role | Provides Read Only Access to Necessary Services.   | 
 | `kplabs-challenge3-user` | Ability to Assume `EC2FullAccess` and `IAMFullAccess` Roles in AWS Account    | 
 | `ro-user` | Ability to Assume `ReadOnlyRole` IAM Role in AWS Account    
