@@ -54,9 +54,9 @@ resource "aws_iam_user_policy" "lb_ro" {
   })
 }
 
-data "aws_caller_identity" "current" {}
+data "aws_caller_identity" "local" {}
 
 resource "local_file" "this" {
-  content = data.aws_caller_identity.current.account_id
+  content = data.aws_caller_identity.local.account_id
   filename = "account-number.txt"
 }
