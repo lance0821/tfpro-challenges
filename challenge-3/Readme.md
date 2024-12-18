@@ -22,7 +22,7 @@ Run the `terraform apply -auto-approve` to create necessary resource before proc
 
 #### 1. Split Resource into Child Modules
 
-Split (Move) the below mentioned code into child modules as described in below table. Each child module must be inside the `modules` folder.
+Split (Move) the below mentioned resources from `challenge-3.tf` (not base folder) into child modules as described in below table. Each child module must be inside the `modules` folder.
 
 
 | Resource Type  | Child Module Folder | 
