@@ -76,9 +76,7 @@ After you have applied solution, try changing capacity for ASG resource to verif
 
 ### Destroy Infrastructure
 
-Run `terraform destroy -auto-approve` to delete all infrastructure.
-
-Run `terraform destroy -auto-approve` in `base-folder` to delete all infrastructure.
+Delete all the infrastructure created as part of this Lab.
 
 
 
