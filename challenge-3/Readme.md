@@ -41,6 +41,7 @@ Set up a shared AWS credentials and configuration files for this project.
 * The `conf` and `credentials` file must be present in the `.aws` folder in `challenge-3` directory. 
 
 * The config file must only have two profiles `[asg]` and `[iam]`. No default or other profile should me mentioned.
+* Use the region of `us-east-1` for both the profiles.
 
 * Both the `[asg]` and `[iam]` profile in `./aws/conf` file should point to appropriate IAM roles that were created in `base-folder`  using following details:
 ```
