@@ -5,13 +5,15 @@ This challenge focuses on implementing a multi-provider configuration in Terrafo
 
 ### Base Task
 
-The following resource code is configured  in the `base-folder`:
+The following important resource related code is configured  in the `base-folder`:
 
 | Resource Code | Description | 
 | :---        |    :----:   | 
 | `EC2FullAccess` IAM Role  | Provides Full Access to EC2 service.      | 
 | `IAMFullAccess` IAM Role | Provides Full Access to S3 service.   | 
-| `kplabs-challenge3-user` | Ability to Assume Any Roles in AWS Account    | 
+| `ReadOnlyRole` IAM Role | Provides Read Only Access to Necessary Services.   | 
+| `kplabs-challenge3-user` | Ability to Assume `EC2FullAccess` and `IAMFullAccess` Roles in AWS Account    | 
+| `ro-user` | Ability to Assume `ReadOnlyRole` IAM Role in AWS Account    
 
 Run the `terraform apply -auto-approve` to create necessary resource before proceeding to Task 1.
 
@@ -20,16 +22,17 @@ Run the `terraform apply -auto-approve` to create necessary resource before proc
 
 #### 1. Split Resource into Child Modules
 
-Split (Move) the existing code into multiple child modules as described in below table. Each child module must be inside the `modules` folder.
+Split (Move) the below mentioned code into child modules as described in below table. Each child module must be inside the `modules` folder.
 
 
 | Resource Type  | Child Module Folder | 
 | :---        |    :----:   | 
 | `aws_launch_template`  | asg      | 
 | `aws_autoscaling_group`  | asg   | 
-| `kplabs-user` | iam    | 
+| `aws_iam_user` | iam    | 
+| `aws_iam_user_policy` | iam    | 
 
-Configure the appropriate module sources in the root module (main.tf) to load all child modules.
+Configure the appropriate module sources in the root module (challenge-3.tf) to load all child modules.
 
 #### 2. Create Shared Config and Credentials File
 
@@ -37,40 +40,38 @@ Set up a shared AWS credentials and configuration files for this project.
 
 * The `conf` and `credentials` file must be present in the `.aws` folder in `challenge-3` directory. 
 
-* The config file must only have two profiles [asg] and [iam]
+* The config file must only have two profiles `[asg]` and `[iam]`. No default or other profile should me mentioned.
 
-* Both the `[asg]` and `[iam]` profile in `./aws/conf` file should point to appropriate IAM roles that were created in `base-folder` using `role_arn`
-
-* `[asg]` profile should point to ARN of IAM role with `EC2FullAccess` 
-* `[iam]` profile should point to ARN of IAM role with `IAMFullAccess`
-
-* The credential file must be defined with following format
-
-```sh
-[kplabs-challenge3-user]
-aws_access_key_id = <ACCESS_KEY_FROM_OUTPUT>
-aws_secret_access_key = <SECRET_KEY_FROM_OUTPUT>
+* Both the `[asg]` and `[iam]` profile in `./aws/conf` file should point to appropriate IAM roles that were created in `base-folder`  using following details:
+```
+ [asg] profile should point to ARN of IAM role named `EC2FullAccess` 
+ [iam] profile should point to ARN of IAM role named `IAMFullAccess`
 ```
 
-Replace the access key and secret access key by fetching the value from `base-folder` state file
+* The `[asg]` and `[iam]` profile MUST use credentials associated with `kplabs-challenge3-user` from `base-folder` to assume the necessary roles.
+
 
 #### 3. Add Appropriate Provider Configuration
 
 * ASG Child-Module should make use of `[asg]` profile.
 * IAM Child-Module should make use of `[iam]` profile.
-* Ensure there are no other profile in `conf` file.
+
+* `data.aws_caller_identity.local` MUST assume the `ReadOnlyRole` to fetch the data. Credentials of `ro-user` can be used for authentication.
 
 #### 4. Deploy Resources
 
-Run the `terraform apply -auto-approve` to create the resources.
+Run `terraform apply` command to deploy `local_file resource` first. No other resources should be created at this step. Verify if `txt` file with account number is created successfully. 
 
-Ensure ALL resources are deployed successfully.
+Run the `terraform apply -auto-approve` to create all other resources.
 
-#### 5. Prevent Change of Tags
 
-Any change made to `tags` for auto-scaling group should be prevented to be deployed in actual infrastructure.
+#### 5. Prevent Change of Desired Capacity
 
-After you have applied solution, try changing tags for ASG and verify if Terraform plans to change/update it in actual resource.
+Change `desired_capacity` in Terraform code from `1` to `2`
+
+Add appropriate solution that ignores any changes made to `desired_capacity` so that only `1` EC2 instance runs as part of desired_capacity similar to base code provided.
+
+After you have applied solution, try changing capacity for ASG resource to verify if Terraform plans to change/update it in actual resource.
 
 ### Destroy Infrastructure
 
