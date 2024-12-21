@@ -32,7 +32,7 @@ This challenge is designed to help you practice Terraform concepts such as data 
 
 * Create a new file `sg.tf` in the base-folder.
 
-* Define a single `aws_security_group` resource block using for_each to create two security groups:
+* Define a single `aws_security_group` resource block using `for_each` to create two security groups:
    * app-1-sg.
    * app-2-sg.
 
@@ -45,13 +45,15 @@ Refer to the contents of the `sg.csv` file and create security group rule based 
 
 1. Use a single `aws_vpc_security_group_ingress_rule` resource block to create security group inbound rules for `app-1-sg` security group. 
 
-* If `description` in CSV is `app-1`, the rule must be associated with `app-1-sg` security group. Only consider inbound rules, outbound rules should be ignored.
+* If `description` in CSV is `app-1`, the rule must be associated with `app-1-sg` security group. Only consider inbound rules, the outbound rules should be ignored.
 
 2. Use a single `aws_vpc_security_group_engress_rule` resource block to create security group egress rules for `app-2-sg` security group.
 
 * If `description` in CSV is `app-2`, the rule must be associated with `app-2-sg` security group. Only consider outbound rules, the inbound rules should be ignored.
 
-Use the `for_each` and `for expression` to iterate over the contents of CSV files to fetch necessary data.
+> [!IMPORTANT]  
+> Use the `for_each` and `for expression` to iterate over the contents of CSV files to fetch necessary data.
+
 
 ### Task 6 - Create Necessary Resources
 
@@ -118,6 +120,8 @@ In `infra/others` folder:
 * Define `terraform_remote_state` in root module only and not child.
 * Import existing EC2 and security group resources
 
+> [!TIP]
+> Ensure outputs in `vpc.tfstate` contain the subnet_ids of both the subnets
 
 ### Task 11 - Destroy the Infrastructure
 
