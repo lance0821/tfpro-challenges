@@ -49,7 +49,7 @@ Refer to the contents of the `sg.csv` file and create security group rule based 
 
 2. Use a single `aws_vpc_security_group_engress_rule` resource block to create security group egress rules for `app-2-sg` security group.
 
-* If `description` in CSV is `app-2`, the rule must be associated with `app-2-sg` security group. Only consider outbound rules, the rules should be ignored.
+* If `description` in CSV is `app-2`, the rule must be associated with `app-2-sg` security group. Only consider outbound rules, the inbound rules should be ignored.
 
 Use the `for_each` and `for expression` to iterate over the contents of CSV files to fetch necessary data.
 
