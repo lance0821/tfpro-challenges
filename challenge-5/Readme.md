@@ -27,6 +27,8 @@ This challenge is designed to help you practice Terraform concepts such as data 
   * One EC2 in `subnet-subnet1` (whose subnet id was fetched in Task 2).
   * Second EC2 in `subnet-subnet2`(whose subnet id was fetched in Task 2).
 
+> [!NOTE]
+> You need to reference to subnet_id by querying data source. No hardcoding.
 
 ### Task 4 - Create Security Group
 
@@ -47,7 +49,7 @@ Refer to the contents of the `sg.csv` file and create security group rule based 
 
 * If `description` in CSV is `app-1`, the rule must be associated with `app-1-sg` security group. Only consider inbound rules, the outbound rules should be ignored.
 
-2. Use a single `aws_vpc_security_group_engress_rule` resource block to create security group egress rules for `app-2-sg` security group.
+2. Use a single `aws_vpc_security_group_egress_rule` resource block to create security group egress rules for `app-2-sg` security group.
 
 * If `description` in CSV is `app-2`, the rule must be associated with `app-2-sg` security group. Only consider outbound rules, the inbound rules should be ignored.
 
