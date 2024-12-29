@@ -61,14 +61,14 @@ The Access/Secret key for `[ec2-access]` profile should be fetched from IAM user
 
 ### 3. Add Source Profile
 
-The `readonly-access` profile should only use credentials associated with `default` profile to assume the necessary role. Add necessary parameter for this profile to achieve this.
+The `readonly-access` profile should be configured to use credentials associated with `default` profile to assume the necessary role. Add necessary parameter to this profile to achieve this.
 
 You cannot add `[default]` profile in `./aws/config` or `./aws/credentials` file of challenge-6 folder.
 
-The `default` profile credentials are present in a file named `default-creds.txt` in base folder.
+The `default` profile credentials are present in a file named `default-creds.txt` in `base-folder`.
 
 
-#### 4. Modify `challenge-6.tf` file
+### 4. Modify `challenge-6.tf` file
 
 * `aws_iam_role` resource type must use the `[iam-access]` profile.
 
@@ -79,16 +79,16 @@ The `default` profile credentials are present in a file named `default-creds.txt
 > [!TIP]
 > For `readonly-access` profile related configuration, you can fetch all necessary information from `.aws/config` file and `default-creds.txt` and add it in the `provider` block instead of referencing these files.
 > 
-#### 5. Apply Changes
+### 5. Apply Changes
 
 Run `terraform apply -auto-approve` to ensure all resources are created successfully.
 
-#### 6. Remove Deprecation Related Warnings
+### 6. Remove Deprecation Related Warnings
 
 Remove any deprecated warnings that you might see as part of code / output. 
 
 
-#### 7.  Destroy Infrastructure
+### 7.  Destroy Infrastructure
 
 Delete all the infrastructure created as part of this Lab.
 
