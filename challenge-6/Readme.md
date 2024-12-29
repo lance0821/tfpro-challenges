@@ -77,7 +77,7 @@ The `default` profile credentials are present in a file named `default-creds.txt
 * `aws_caller_identity` data source should use of information mentioned in `readonly-access` profile to make request to AWS.
 
 > [!TIP]
-> For `readonly-access` profile related configuration, you can fetch all necessary information from `.aws/config` file and `default-creds.txt` to build provider block instead of referencing these files.
+> For `readonly-access` profile related configuration, you can fetch all necessary information from `.aws/config` file and `default-creds.txt` and add it in the `provider` block instead of referencing these files.
 > 
 #### 5. Apply Changes
 
