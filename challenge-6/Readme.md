@@ -61,9 +61,9 @@ The Access/Secret key for `[ec2-access]` profile should be fetched from IAM user
 
 ### 3. Add Source Profile
 
-The `readonly-access` profile should only use credentials associated with `default` profile to assume the necessary role.
+The `readonly-access` profile should only use credentials associated with `default` profile to assume the necessary role. Add necessary parameter for this profile to achieve this.
 
-You cannot add `[default]` profile in `./aws/conf` or `./aws/credentials` file of challenge-6 folder.
+You cannot add `[default]` profile in `./aws/config` or `./aws/credentials` file of challenge-6 folder.
 
 The `default` profile credentials are present in a file named `default-creds.txt` in base folder.
 
@@ -76,7 +76,9 @@ The `default` profile credentials are present in a file named `default-creds.txt
 
 * `aws_caller_identity` data source should use of information mentioned in `readonly-access` profile to make request to AWS.
 
-
+> [!TIP]
+> For `readonly-access` profile related configuration, you can fetch all necessary information from `.aws/config` file and `default-creds.txt` to build provider block instead of referencing these files.
+> 
 #### 5. Apply Changes
 
 Run `terraform apply -auto-approve` to ensure all resources are created successfully.
