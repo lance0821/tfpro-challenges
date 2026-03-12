@@ -1,0 +1,24 @@
+{
+  "name": "Terraform Professional Challenges",
+  "image": "mcr.microsoft.com/devcontainers/base:ubuntu",
+  "features": {
+    "ghcr.io/devcontainers/features/terraform:1": {},
+    "ghcr.io/devcontainers/features/aws-cli:1": {}
+  },
+  "customizations": {
+    "vscode": {
+      "extensions": [
+        "hashicorp.terraform",
+        "enkia.tokyo-night",
+        "github.copilot-chat"
+      ],
+      "settings": {
+        "workbench.colorTheme": "Tokyo Night",
+        "github.copilot.enable": {
+          "*": false
+        },
+        "editor.inlineSuggest.enabled": false
+      }
+    }
+  }
+}
