@@ -15,7 +15,7 @@ resource "aws_launch_template" "this" {
 
 resource "aws_autoscaling_group" "dev" {
   availability_zones = ["us-east-1a", "us-east-1b"]
-  desired_capacity   = 10
+  desired_capacity   = 1
   max_size           = 2
   min_size           = 1
 
@@ -31,7 +31,7 @@ resource "aws_autoscaling_group" "dev" {
   }
 
   lifecycle {
-    ignore_changes = [ desired_capacity ]
-    
+    ignore_changes = [desired_capacity]
+
   }
 }
