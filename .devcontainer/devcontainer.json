@@ -20,5 +20,6 @@
         "editor.inlineSuggest.enabled": false
       }
     }
-  }
+  },
+  "postCreateCommand": "apt-get update && apt-get install -y git-lfs && git lfs install"
 }
