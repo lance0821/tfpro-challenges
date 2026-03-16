@@ -1,0 +1,3 @@
+ec2_fullaccess_role = "arn:aws:iam::191027238205:role/EC2FullAccess"
+iam_fullaccess_role = "arn:aws:iam::191027238205:role/IAMFullAccess"
+read_only_role_arn = "arn:aws:iam::191027238205:role/ReadOnlyRole"
