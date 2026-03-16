@@ -1,0 +1,31 @@
+# Terraform state and backup files
+*.tfstate
+*.tfstate.*
+crash.log
+*.log
+*.tfvars
+*.tfvars.json
+.terraform/
+.terraform.lock.hcl
+
+# Editor and OS files
+.vscode/
+.idea/
+*.swp
+*.swo
+.DS_Store
+Thumbs.db
+
+# Python cache
+__pycache__/
+*.pyc
+
+# Node modules
+node_modules/
+
+# Backup files
+*~
+*.bak
+
+# AWS credentials (if any)
+.aws/
