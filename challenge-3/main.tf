@@ -27,8 +27,18 @@ provider "aws" {
   shared_credentials_files = [".aws/credentials"]
 }
 
+provider "aws" {
+  region                   = "us-east-1"
+  alias                    = "readonly"
+  profile                  = "readonly"
+  shared_config_files      = [".aws/config"]
+  shared_credentials_files = [".aws/credentials"]
+}
 
-data "aws_caller_identity" "local" {}
+
+data "aws_caller_identity" "local" {
+  provider = aws.readonly
+}
 
 resource "local_file" "this" {
   content  = data.aws_caller_identity.local.account_id
