@@ -9,7 +9,7 @@ locals {
         port = rule.port
     } if rule.direction == "in" && rule.description == "app-1"}
 
-        app_2_egress_rules = {for idx,rule in local.all_rules: idx => {
+    app_2_egress_rules = {for idx,rule in local.all_rules: idx => {
         name = rule.name
         protocol = rule.protocol
         cidr_block = rule.cidr_block
