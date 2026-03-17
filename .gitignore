@@ -29,3 +29,6 @@ node_modules/
 
 # AWS credentials (if any)
 .aws/
+challenge-13/broken-2/.aws/credentials
+challenge-6/.aws/credentials
+
