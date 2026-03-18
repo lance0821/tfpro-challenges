@@ -4,7 +4,7 @@ terraform {
       source = "hashicorp/aws"
       # BUG: This constraint demands a 4.x provider, which conflicts with
       # the root module's 5.x requirement. Fix this to accept 5.x versions.
-      version = "~> 4.0"
+      version = "~> 5.0"
     }
   }
 }

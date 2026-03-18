@@ -1,12 +1,13 @@
 terraform {
   # TODO (Task 6): Add a required_version constraint for >= 1.6.0, < 2.0.0
+  required_version = ">= 1.6.0, < 2.0.0"
 
   required_providers {
     aws = {
       source = "hashicorp/aws"
       # BUG: This constraint demands exactly 5.20.0, but the lock file
       # has a different version pinned. This will cause terraform init to fail.
-      version = "= 5.20.0"
+      version = ">= 5.2"
     }
     random = {
       source  = "hashicorp/random"
