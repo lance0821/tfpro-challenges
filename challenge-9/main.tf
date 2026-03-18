@@ -32,6 +32,13 @@ data "aws_ami" "amazon_linux" {
     name   = "virtualization-type"
     values = ["hvm"]
   }
+
+  lifecycle {
+    precondition {
+      condition     = contains(["x86_64", "arm64"], var.required_architecture)
+      error_message = "Architecture must be x86_64 or arm64."
+    }
+  }
 }
 
 # --- RESOURCES ---
@@ -43,6 +50,13 @@ resource "aws_instance" "web" {
 
   tags = {
     Name = "challenge-9-validation-lab"
+  }
+
+  lifecycle {
+    postcondition {
+      condition     = self.instance_state == "running"
+      error_message = "Instance did not reach running state."
+    }
   }
 }
 
@@ -77,3 +91,29 @@ output "ami_creation_date" {
 
 # TODO: Add a check block named "ami_is_recent" that warns if the AMI
 # creation_date is not from the current year.
+
+check "ami_is_recent" {
+  data "aws_ami" "recent_check" {
+    most_recent = true
+    owners      = ["amazon"]
+
+    filter {
+      name   = "name"
+      values = ["al2023-ami-*"]
+    }
+
+    filter {
+      name   = "architecture"
+      values = [var.required_architecture]
+    }
+
+    filter {
+      name   = "virtualization-type"
+      values = ["hvm"]
+    }
+  }
+  assert {
+    condition     = substr(data.aws_ami.recent_check.creation_date, 0, 4) == formatdate("YYYY", plantimestamp())
+    error_message = "AMI is not from the current year."
+  }
+}
