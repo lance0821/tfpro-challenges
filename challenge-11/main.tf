@@ -34,7 +34,7 @@ resource "aws_iam_access_key" "lab_key" {
 # BUG: This writes the secret access key to a plaintext file with default
 # permissions (0644). Anyone on the system can read it.
 # TODO (Task 6): Refactor to use local_sensitive_file instead.
-resource "local_file" "credentials" {
+resource "local_sensitive_file" "credentials" {
   filename = "${path.module}/credentials.txt"
   content  = <<-EOT
     [${aws_iam_user.lab_user.name}]
@@ -52,17 +52,24 @@ output "iam_user_name" {
 
 output "iam_access_key_id" {
   value = aws_iam_access_key.lab_key.id
+  sensitive = true
 }
 
 # BUG: This output leaks the secret access key in plaintext in the terminal.
 # TODO (Task 4): Fix this — either mark as sensitive or remove entirely.
 output "iam_secret_key" {
   value = aws_iam_access_key.lab_key.secret
+  sensitive = true
 }
 
 output "db_password_value" {
   value = var.db_password
+  sensitive = true
 }
 
 # TODO (Task 5): Add an output called "secret_key_length" that reveals only
 # the length of the secret key using nonsensitive(length(...))
+
+output "secret_key_length" {
+  value = nonsensitive(length(aws_iam_access_key.lab_key.secret))
+}

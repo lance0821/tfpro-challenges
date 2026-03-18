@@ -6,4 +6,5 @@ variable "db_password" {
   description = "Database password for the application"
   type        = string
   default     = "SuperSecret123!"
+  sensitive = true
 }
