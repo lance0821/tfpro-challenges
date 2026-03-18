@@ -1,0 +1,60 @@
+import {
+  to = aws_iam_user.lb[0]
+  id = "bursting-teal-kplabs-0"
+}
+
+import {
+  to = aws_iam_user.lb[1]
+  id = "bursting-teal-kplabs-1"
+}
+
+import {
+  to = aws_iam_user.lb[2]
+  id = "bursting-teal-kplabs-2"
+}
+
+import {
+  to = aws_iam_user_policy.lb_ro[0]
+  id = "bursting-teal-kplabs-0:ec2-describe-policy"
+}
+
+import {
+  to = aws_iam_user_policy.lb_ro[1]
+  id = "bursting-teal-kplabs-1:ec2-describe-policy"
+}
+
+import {
+  to = aws_iam_user_policy.lb_ro[2]
+  id = "bursting-teal-kplabs-2:ec2-describe-policy"
+}
+
+import {
+  to = aws_s3_bucket.example["kplabs-1"]
+  id = "bursting-teal-kplabs-1"
+}
+
+import {
+  to = aws_s3_bucket.example["kplabs-2"]
+  id = "bursting-teal-kplabs-2"
+}
+
+import {
+  to = aws_s3_object.object["kplabs-1"]
+  id = "s3://bursting-teal-kplabs-1/base.txt"
+}
+
+import {
+  to = aws_s3_object.object["kplabs-2"]
+  id = "s3://bursting-teal-kplabs-2/base.txt"
+}
+
+import {
+  to = aws_security_group.example
+  id = "sg-0fecc18edf8da228a"
+}
+
+import {
+  to = aws_vpc_security_group_ingress_rule.example
+  id = "sgr-0a084406b95e1d587"
+}
+

@@ -25,8 +25,9 @@ resource "aws_iam_user" "lb" {
 # This policy must be associated with all IAM users created through this code.
 
 resource "aws_iam_user_policy" "lb_ro" {
+  count = length(aws_iam_user.lb)
   name = "ec2-describe-policy"
-  user = aws_iam_user.lb.name
+  user = aws_iam_user.lb[count.index].name
   policy = jsonencode({
     Version = "2012-10-17"
     Statement = [
@@ -45,23 +46,13 @@ resource "aws_iam_user_policy" "lb_ro" {
 resource "aws_s3_bucket" "example" {
   for_each  = var.s3_buckets 
    bucket = "${random_pet.this.id}-${each.value}"
+   force_destroy = "true"
 }
 
-resource "aws_s3_object" "object" {
+
+resource "aws_s3_object" "new_object" {
   for_each  = var.s3_buckets 
   bucket = aws_s3_bucket.example[each.key].id
-  key    = var.s3_base_object
-}
-
-resource "aws_security_group" "example" {
-  name        = var.sg_name
-}
-
-resource "aws_vpc_security_group_ingress_rule" "example" {
-  security_group_id = aws_security_group.example.id
-
-  cidr_ipv4   = "10.0.0.0/8"
-  from_port   = 80
-  ip_protocol = "tcp"
-  to_port     = 80
+  key    = "new.txt"
+  content = "Success"
 }
