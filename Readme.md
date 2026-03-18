@@ -1,4 +1,3 @@
-
 # Terraform Professional Challenges
 
 These challenges are part of the HashiCorp Certified: Terraform Authoring and Operations Professional 2025 video course by Zeal Vora.
@@ -56,3 +55,110 @@ Challenges in **bold** are new additions that close gaps identified in the origi
 5. Challenge 12 (automation) — CI/CD patterns are exam-relevant
 6. Challenge 13 (provider debugging) — forensic reasoning under time pressure
 7. Challenge 14 (HCP Terraform) — study pack for the multiple-choice section
+
+---
+
+## Practice Labs — Additional Exercises
+
+The `practice-labs/` folder contains 20 additional exercises designed for
+exam-pressure repetition. These labs cover the same objectives from different
+angles so concepts stick through repeated exposure.
+
+### Practice Lab Matrix
+
+| Lab | Topic | Exam Objective | Type | Difficulty |
+|-----|-------|----------------|------|------------|
+| 01 | `for_each` with maps | 2d | Clean starter | Medium |
+| 02 | Dynamic blocks | 2d | Clean starter | Medium |
+| 03 | Three-module chain | 4a, 4b | Clean starter | Medium |
+| 04 | Provider aliases (multi-region) | 5a, 5c | Broken to fix | Hard |
+| 05 | `moved` blocks refactoring | 4c | Flat config to refactor | Hard |
+| 06 | Lifecycle rules | 1e | Mixed | Medium |
+| 07 | `templatefile()` + user data | 2c | Clean starter | Medium |
+| 08 | Conditional resources | 2d | Broken to fix | Medium |
+| 09 | Locals + `for` expressions | 2c, 2e | Clean starter | Hard |
+| 10 | Structured outputs | 2e | Broken to fix | Hard |
+| 11 | Data sources deep dive | 2b | Mixed | Hard |
+| 12 | `import` blocks (Terraform 1.5+) | 1b | Real AWS required | Hard |
+| 13 | `terraform_remote_state` two-stack | 3b | Real AWS required | Hard |
+| 14 | Validation + preconditions + check | 2a | Broken to fix | Hard |
+| 15 | Sensitive data and state exposure | 2f, 1d | Broken to fix | Hard |
+| 16 | Terraform workspaces | 3b | Mixed | Hard |
+| 17 | `count` vs `for_each` tradeoffs | 2d | Broken to fix | Hard |
+| 18 | Broken module wiring (3 bugs) | 4a, 5d | Broken to fix | Hard |
+| 19 | Version constraints + lock file | 3a, 5b | Broken to fix | Hard |
+| 20 | Non-interactive CI/CD workflow | 3c, 3d | Script to complete | Hard |
+
+### Recommended Practice Lab Order
+
+**Phase 1 — Foundation (Labs 1–3, 6–9)**
+Cleaner starter labs. Build muscle memory on `for_each`, dynamic blocks,
+module wiring, and HCL functions before tackling the harder labs.
+
+**Phase 2 — Debugging under pressure (Labs 4, 8, 10, 14, 17, 18)**
+Each has intentional bugs. Practice reading error messages precisely and
+fixing only what's broken — no unnecessary refactoring.
+
+**Phase 3 — Exam lab scenarios (Labs 5, 12, 13, 20)**
+These most closely mirror the 4-hour exam lab format. Set a timer.
+- Lab 05: Refactor without destroying (`moved` blocks)
+- Lab 12: Import real AWS resources to zero planned changes
+- Lab 13: Two-stack remote state sharing
+- Lab 20: Build a complete non-interactive CI pipeline
+
+**Phase 4 — Knowledge gaps (Labs 11, 15, 16, 19)**
+Conceptual topics that get tested practically: state exposure, workspaces,
+version constraints, and data source edge cases.
+
+---
+
+## Common Exam Traps (Quick Reference)
+
+| Trap | What Actually Happens |
+|------|-----------------------|
+| `sensitive = true` protects state | NO — state always has plaintext |
+| `count` + list removal only removes one item | NO — all items after the removed index are affected |
+| `for_each` accepts a `list` | NO — requires `map` or `set`; use `toset()` |
+| `file()` renders template variables | NO — only `templatefile()` does variable substitution |
+| `terraform fmt` is safe to run in CI | CAUTION — it modifies files; use `fmt -check` in CI |
+| Child module can reference root resources directly | NO — values must pass through variables |
+| `detailed-exitcode` 1 means changes pending | NO — 2 means changes, 1 means error |
+| Import block `id` can be a resource reference | NO — must be a literal string |
+| Destroy root config before app config is fine | NO — destroy app first when it reads remote state |
+| `moved` block destroys and recreates | NO — it only updates state addresses |
+
+---
+
+## Key Commands Reference
+
+```bash
+# Workspace management
+terraform workspace new dev
+terraform workspace select prod
+terraform workspace list
+
+# State surgery
+terraform state list
+terraform state mv 'old_address' 'new_address'
+terraform state rm 'address'
+terraform import 'address' 'id'
+
+# Non-interactive CI
+terraform init -input=false
+terraform plan -input=false -detailed-exitcode -out=tfplan
+terraform apply tfplan
+terraform fmt -check -recursive
+
+# Debugging
+TF_LOG=DEBUG terraform plan
+TF_LOG=WARN terraform plan 2>&1 | grep -i warn
+
+# Lock file
+terraform init -upgrade
+terraform providers lock
+
+# Console (REPL for testing expressions)
+terraform console
+> [for k, v in var.buckets : k]
+> toset(["a", "b", "a"])
+```

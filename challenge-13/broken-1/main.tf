@@ -40,7 +40,7 @@ module "compute" {
     # BUG: This key does not match what the child module expects.
     # The child module's configuration_aliases expects "aws.west"
     # but we're passing it under the wrong key.
-    aws.wrong_name = aws.us_west
+    aws.west = aws.us_west
   }
 
   instance_name = "challenge-13-west-instance"

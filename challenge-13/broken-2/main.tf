@@ -14,7 +14,7 @@ provider "aws" {
   region                   = "us-east-1"
   shared_config_files      = ["${path.module}/.aws/config"]
   shared_credentials_files = ["${path.module}/.aws/credentials"]
-  profile                  = "deploy-role"
+  profile                  = "deployment"
 }
 
 # --- RESOURCES ---

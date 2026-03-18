@@ -6,6 +6,11 @@ terraform {
       version = "~> 5.80.0"
     }
   }
+  backend "s3" {
+    bucket = "tfstate-llewandowski" 
+    key    = "challenge-12/network/terraform.tfstate"
+    region = "us-east-1"    
+  }
 
   # TODO (Task 1): Add an S3 backend configuration for state storage.
   # Use key = "challenge-12/network/terraform.tfstate"
